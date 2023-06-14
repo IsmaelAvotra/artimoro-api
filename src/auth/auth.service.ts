@@ -75,9 +75,12 @@ export class AuthService {
   }
 
   async logout(userId: string) {
+    const user = await this.userModel.findById({ _id: userId });
+    console.log(user);
+
     await this.userModel.updateMany(
       {
-        id: userId,
+        _id: userId,
         hashedRt: { $exists: true, $ne: null },
       },
       {
